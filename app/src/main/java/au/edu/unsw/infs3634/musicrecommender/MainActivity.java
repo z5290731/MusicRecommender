@@ -34,13 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         RRecyclerView = findViewById(R.id.Music_Recycler);
         RRecyclerView.setHasFixedSize(true);
-        RecyclerMusic.RecyclerViewClickListener RListener = new RecyclerMusic.RecyclerViewClickListener() {
-            @Override
-            public void onClick (View v, String title) {
-                launchMusicSecondary(title);
-
-            }
-        };
+        RecyclerMusic.RecyclerViewClickListener RListener = (v, title) -> launchMusicSecondary(title);
 
         RecyclerAdapter = new RecyclerMusic(Music.getMusic(), RListener);
         RRecyclerView.setAdapter(RecyclerAdapter);
@@ -50,13 +44,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu (Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu) {
+
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main,menu);
+
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        System.out.println(searchView + "HELLO");
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String query) {
+
+                System.out.println("HELLO  " + query);
                 RecyclerAdapter.getFilter().filter(query);
                 return false;
             }
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 RecyclerAdapter.getFilter().filter(newText);
+                System.out.println("HELLO  " + newText);
                 return false;
             }
         });

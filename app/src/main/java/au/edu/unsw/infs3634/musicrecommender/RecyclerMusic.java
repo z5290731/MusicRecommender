@@ -22,7 +22,7 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
     // INCLUE MORE SORTING (ARTIST)//
 
     private ArrayList<Music> mRecyclerMusic;
-    private ArrayList <Music> RecyclerMusicFiltered;
+    private ArrayList<Music> RecyclerMusicFiltered;
 
     private RecyclerViewClickListener RecyclerListener;
 
@@ -35,9 +35,6 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
 
     }
 
-    public interface RecyclerViewClickListener {
-        void onClick(View view, String title);
-    }
 
     @Override
     public Filter getFilter() {
@@ -45,21 +42,22 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 String charString = constraint.toString();
+                System.out.println(charString);
                 if(charString.isEmpty()) {
                     RecyclerMusicFiltered = mRecyclerMusic;
 
                 } else {
                     ArrayList<Music> filteredList = new ArrayList<>();
-                    for (Music music : mRecyclerMusic) {
-                        if(music.getName().toLowerCase().contains(charString.toLowerCase())) {
-                            filteredList.add(music);
+                    for (Music musicD : mRecyclerMusic ) {
+                        if (musicD.getName().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(musicD);
                         }
                     }
                     RecyclerMusicFiltered = filteredList;
                 }
-                FilterResults filteredResults = new FilterResults();
-                filteredResults.values = RecyclerMusicFiltered;
-                return filteredResults;
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = RecyclerMusicFiltered;
+                return filterResults;
 
 
 
@@ -67,6 +65,7 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
+                System.out.println(results + "HELLO");
                 RecyclerMusicFiltered = (ArrayList<Music>) results.values;
                 notifyDataSetChanged();
 
@@ -74,6 +73,11 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
         };
 
     }
+
+    public interface RecyclerViewClickListener {
+        void onClick(View view, String title);
+    }
+
 
 
 
@@ -87,10 +91,10 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
 
     @Override
     public void onBindViewHolder(@NonNull MusicViewHolder holder, int position) {
-        Music music = mRecyclerMusic.get(position);
+        Music music = RecyclerMusicFiltered.get(position);
         holder.ListTitle.setText(music.getName());
-
-        System.out.println(holder.ListTitle);
+        System.out.println(position + "TESTING 12322");
+        System.out.println(holder.ListTitle + "TESTING 123");
 
         holder.ListRanking.setText(Integer.toString(music.getRank()));
         holder.ListArtist.setText(music.getArtist());
