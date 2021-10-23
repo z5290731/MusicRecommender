@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Music Recommender</string>
+    <string name="action_search">Search</string>
+    <string name="action_sort">Sort</string>
+
+    <string name="sort_rating">Rating</string>
+
+    <string name="sort_ranking">Rank</string>
+
+
 </resources>
