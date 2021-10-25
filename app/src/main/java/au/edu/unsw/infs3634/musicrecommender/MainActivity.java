@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MusicSecondary.class);
 
         intent.putExtra("music_title", message);
+        intent.putExtra("music_ID", message);
 
         startActivity(intent);
     }
