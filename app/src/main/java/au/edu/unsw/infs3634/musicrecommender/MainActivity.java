@@ -1,8 +1,13 @@
 package au.edu.unsw.infs3634.musicrecommender;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,8 +19,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+
 
 import java.util.ArrayList;
 
@@ -27,18 +34,26 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         RRecyclerView = findViewById(R.id.Music_Recycler);
         RRecyclerView.setHasFixedSize(true);
         RecyclerMusic.RecyclerViewClickListener RListener = (v, title) -> launchMusicSecondary(title);
 
+
+
+
         RecyclerAdapter = new RecyclerMusic(Music.getMusic(), RListener);
         RRecyclerView.setAdapter(RecyclerAdapter);
         RRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
     }
 
@@ -91,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     /** Called when the user taps the Send button */
     public void launchMusicSecondary(String message) {
         Intent intent = new Intent(this, MusicSecondary.class);
@@ -101,3 +118,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 }
+

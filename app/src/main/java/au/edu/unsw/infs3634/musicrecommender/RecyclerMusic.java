@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewHolder> implements Filterable {
+
 
     public static final int SORT_METHOD_RATING = 1;
     public static final int SORT_METHOD_RANK = 2;
@@ -34,6 +36,8 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
 
 
     }
+
+
 
 
     @Override
@@ -101,6 +105,10 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
         holder.ListRating.setText(Integer.toString(music.getRating()));
         holder.ListGenre.setText(music.getGenre());
         holder.itemView.setTag(music.getName());
+        holder.ImageAlbum.setImageResource(music.getCode());
+
+
+
         //holder.ListDescription.setText(music.getDescription());
 
 
@@ -113,6 +121,7 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
 
     public static class MusicViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView ListTitle, ListRanking, ListArtist, ListRating, ListGenre, ListDescription;
+        public ImageView ImageAlbum;
         public RecyclerViewClickListener listener;
 
         public MusicViewHolder(@NonNull View itemView, RecyclerViewClickListener listener) {
@@ -124,6 +133,9 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
             ListArtist = itemView.findViewById(R.id.textView3);
             ListRating = itemView.findViewById(R.id.textView4);
             ListGenre = itemView.findViewById(R.id.r_genre);
+            ImageAlbum = itemView.findViewById(R.id.imageView2);
+
+
             //ListDescription = itemView.findViewById();
         }
 
@@ -133,6 +145,8 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
         }
 
     }
+
+
 
     public void sort(final int sortingMethod) {
         if (RecyclerMusicFiltered.size() > 0) {

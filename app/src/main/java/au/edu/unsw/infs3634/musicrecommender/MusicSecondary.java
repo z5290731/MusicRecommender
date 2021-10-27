@@ -2,8 +2,14 @@ package au.edu.unsw.infs3634.musicrecommender;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.palette.graphics.Palette;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,8 +22,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.google.android.exoplayer2.MediaItem;
+import com.google.android.exoplayer2.SimpleExoPlayer;
 
+import java.io.DataInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class MusicSecondary extends AppCompatActivity {
@@ -26,6 +35,8 @@ public class MusicSecondary extends AppCompatActivity {
 
     public TextView ListTitle, ListArtist, ListRating, ListGenre, ListDescription, ListRanking, TestView;
 
+    public ImageButton share;
+
     public ImageButton Play, Stop, Pause;
 
     public ImageView AlbumImage;
@@ -33,6 +44,10 @@ public class MusicSecondary extends AppCompatActivity {
     public SeekBar SeekBar;
 
     public MediaPlayer mediaPlayer;
+
+    public View rectangle_at_the_top;
+
+    public MediaItem mediaItem;
 
     public double finalTime = 0;
 
@@ -59,9 +74,10 @@ public class MusicSecondary extends AppCompatActivity {
         Pause = (ImageButton) findViewById(R.id.Pause);
         Stop = (ImageButton) findViewById(R.id.Stop);
         SeekBar = (SeekBar) findViewById(R.id.seekBar);
-
-
-
+        share = (ImageButton) findViewById(R.id.share1);
+        rectangle_at_the_top = (View) findViewById(R.id.rectangle_at_the_top);
+        ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
+        //constraintLayout.setBackgroundColor(191414);
 
 
 
@@ -79,13 +95,7 @@ public class MusicSecondary extends AppCompatActivity {
 
         ArrayList<Music> musicID = Music.getMusic();
 
-
-
-
-
-
-
-
+        SimpleExoPlayer player = new SimpleExoPlayer.Builder(this).build();
 
 
 
@@ -98,82 +108,50 @@ public class MusicSecondary extends AppCompatActivity {
                 ListRanking.setText(Integer.toString(music.getRank()));
                 ListDescription.setText(music.getDescription());
                 TestView.setText(Integer.toString(music.getCode()));
+                AlbumImage.setImageResource(music.getCode());
                 System.out.println(music.getCode() + "HELLO CODE");
+                mediaPlayer = MediaPlayer.create(this,music.getMusicFile());
 
-                Integer rank = Integer.parseInt((String) TestView.getText());
 
 
-                for(Music musicR: musicID)
-                    switch(rank) {
-                        case 100:
-                            AlbumImage.setImageResource(R.drawable.stay_kid_laroi);
-                            mediaPlayer = MediaPlayer.create(this,R.raw.kl100);
-                            System.out.println("100");
-                            break;
+                //LyricsClient client = new LyricsClient();
 
-                        case 200:
-                            AlbumImage.setImageResource(R.drawable.when_we_were_two);
-                            mediaPlayer = MediaPlayer.create(this,R.raw.uz200);
-                            System.out.println("200");
-                            break;
 
-                        case 300:
-                            AlbumImage.setImageResource(R.drawable.drivers_license);
-                            mediaPlayer = MediaPlayer.create(this,R.raw.dl300);
-                            System.out.println("300");
-                            break;
+                Integer code = Integer.parseInt((String) TestView.getText());
 
-                        case 400:
-                            AlbumImage.setImageResource(R.drawable.never_gonna_give_you_up);
-                            mediaPlayer = MediaPlayer.create(this,R.raw.ra400);
-                            System.out.println("400");
-                            break;
-
-                        case 500:
-                            AlbumImage.setImageResource(R.drawable.i_swear_ill_never_leave_you);
-                            mediaPlayer = MediaPlayer.create(this,R.raw.keshi500);
-                            System.out.println("500");
-                            break;
-
-                        case 600:
-                            AlbumImage.setImageResource(R.drawable.stereotype_stayc);
-                            mediaPlayer = MediaPlayer.create(this,R.raw.stayc600);
-                            System.out.println("600");
-                            break;
-
-                        case 700:
-                            AlbumImage.setImageResource(R.drawable.love_story);
-                            mediaPlayer = MediaPlayer.create(this,R.raw.ts700);
-                            System.out.println("700");
-                            break;
-
-                        case 800:
-                            AlbumImage.setImageResource(R.drawable.visiting_hours);
-                            mediaPlayer = MediaPlayer.create(this,R.raw.es800);
-                            System.out.println("800");
-                            break;
-
-                        case 900:
-                            AlbumImage.setImageResource(R.drawable.leave_the_door_open);
-                            mediaPlayer = MediaPlayer.create(this,R.raw.ltdr900);
-                            System.out.println("900");
-                            break;
-
-                        case 1000:
-                            AlbumImage.setImageResource(R.drawable.empty_words);
-                            mediaPlayer = MediaPlayer.create(this,R.raw.ew1000);
-                            System.out.println("1000");
-                            break;
-
-                        default:
-                            System.out.println("Fix your Switch");
-                            break;
-
-                    }
-
+                InputStream inputStream  = getResources().openRawResource(music.getCode());
+                DataInputStream dataInputStream = new DataInputStream(inputStream);
 
             }
         }
+
+        BitmapDrawable drawable = (BitmapDrawable) AlbumImage.getDrawable();
+        Bitmap bitmapA = drawable.getBitmap();
+        setBackgroundColour(bitmapA);
+        
+        
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String ListRankingS = String.valueOf(ListRanking.getText());
+                String ListTitleS = String.valueOf(ListTitle.getText());
+                String ListArtistS = String.valueOf(ListArtist.getText());
+
+                String shareBody = "My "  + "#" + ListRankingS + " favourite song on Music Recommender is: " + "\n" + ListTitleS + " " + "by" + " " + ListArtistS + "! ";
+                String shareSub = "Share with Music Recommender";
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSub);
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share using"));
+            }
+        });
+
+
+
+
 
         Play.setOnClickListener(new View.OnClickListener() {
 
@@ -183,11 +161,29 @@ public class MusicSecondary extends AppCompatActivity {
 
                 Toast.makeText(getApplicationContext(), "Playing Music",Toast.LENGTH_SHORT).show();
 
+                player.prepare();
+                player.play();
+
+                System.out.println("HELLO" + player.isPlaying());
+
+                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    public void onPrepared(MediaPlayer mp) {
+                        mp.start();
+                    }
+                });
+                //mediaPlayer.prepareAsync();
+
+
                 if(mediaPlayer.isPlaying()) {
+
                     mediaPlayer.stop();
 
                 } else {
+                    player.prepare();
+                    player.play();
                     mediaPlayer.start();
+
+
 
                 }
 
@@ -225,10 +221,54 @@ public class MusicSecondary extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Music Stopped",Toast.LENGTH_SHORT).show();
 
                 mediaPlayer.stop();
+                mediaPlayer.seekTo(0);
+
             }
         });
 
     }
+
+    public Palette createPaletteSync(Bitmap bitmap) {
+        Palette p = Palette.from(bitmap).generate();
+        return p;
+    }
+
+    public void setBackgroundColour(Bitmap bitmap) {
+        Palette p = createPaletteSync(bitmap);
+        Palette.Swatch vibrantSwatch = p.getVibrantSwatch();
+        rectangle_at_the_top = (View) findViewById(R.id.rectangle_at_the_top);
+        ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
+
+        int backgroundColor = ContextCompat.getColor(MusicSecondary.this, R.color.design_default_color_on_primary);
+
+        int textColor = ContextCompat.getColor(MusicSecondary.this, R.color.design_default_color_on_primary);
+
+        int bodyTextColor = ContextCompat.getColor(MusicSecondary.this, R.color.design_default_color_on_primary);
+
+
+        if(vibrantSwatch != null){
+            backgroundColor = vibrantSwatch.getRgb();
+            textColor = vibrantSwatch.getTitleTextColor();
+            bodyTextColor = vibrantSwatch.getBodyTextColor();
+
+        }
+        //constraintLayout.setBackgroundColor(backgroundColor);
+        //rectangle_at_the_top.setBackgroundColor(backgroundColor);
+
+        //ListTitle.setTextColor(textColor);
+        //ListArtist.setTextColor(textColor);
+        //ListRating.setTextColor(textColor);
+        //ListGenre.setTextColor(textColor);
+        //ListRanking.setTextColor(textColor);
+        //ListDescription.setTextColor(bodyTextColor);
+
+
+
+    }
+
+
+
+
 
     Runnable UpdateSongTime = new Runnable() {
         public void run() {
