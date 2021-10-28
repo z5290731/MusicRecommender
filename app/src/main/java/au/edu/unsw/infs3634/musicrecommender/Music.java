@@ -92,7 +92,7 @@ public class Music {
     public static ArrayList<Music> getMusic() {
         ArrayList<Music> musicArray = new ArrayList<>();
 
-        musicArray.add(new Music(1,"STAY", "The Kid Laroi",7,"Hip-Hop","I do the same thing I told you that I never would\n" +
+        musicArray.add(new Music(1,"STAY", "The Kid Laroi",8,"Hip-Hop","I do the same thing I told you that I never would\n" +
                 "I told you I'd change, even when I knew I never could\n" +
                 "Know that I can't find nobody else as good as you\n" +
                 "I need you to stay, need you to stay, hey (oh)\n" +
@@ -134,7 +134,7 @@ public class Music {
                 "I need you to stay, need you to stay, hey\n" +
                 "Oh-oh-oh\n" +
                 "I need you to stay, need you to stay, hey",R.drawable.stay_kid_laroi,R.raw.kl100));
-        musicArray.add(new Music(2,"그때의 나, 그때의 우리", "Urban Zakapa(어반자카파)",8,"K-Ballad","그때의 나 그때의 우리\n" +
+        musicArray.add(new Music(2,"그때의 나, 그때의 우리", "Urban Zakapa(어반자카파)",4,"K-Ballad","그때의 나 그때의 우리\n" +
                 "참 어리석고 어렸지\n" +
                 "그때의 우리 아무것도 아닌 일에\n" +
                 "다투던 초라할 무렵에 기억\n" +
@@ -258,7 +258,7 @@ public class Music {
                 "Never gonna run around and desert you\n" +
                 "Never gonna make you cry\n" +
                 "Never gonna say goodbye",R.drawable.never_gonna_give_you_up,R.raw.ra400));
-        musicArray.add(new Music(5,"i swear i'll never leave you again", "keshi",7,"R&B","Check out @jiraiya121's cover on TikTok!!\n" +
+        musicArray.add(new Music(5,"i swear i'll never leave you again", "keshi",9,"R&B","Check out @jiraiya121's cover on TikTok!!\n" +
                 "Mirror on the wall\n" +
                 "Can you tell me who I am?\n" +
                 "I think that I forgot\n" +
@@ -286,7 +286,7 @@ public class Music {
                 "I'll never leave\n" +
                 "I won't let go\n" +
                 "Oh, I swear I'll never leave again", R.drawable.i_swear_ill_never_leave_you,R.raw.keshi500));
-        musicArray.add(new Music(6,"STEREOTYPE", "STAYC",7,"Korean Pop","There's something to tell you\n" +
+        musicArray.add(new Music(6,"STEREOTYPE", "STAYC",3,"Korean Pop","There's something to tell you\n" +
                 "You want me to share it with you?\n" +
                 "STAYC girls, it's going down\n" +
                 "오늘 유난히 티가 더 나는 걸\n" +
@@ -339,7 +339,7 @@ public class Music {
                 "조금 서투를지도 난 아직도\n" +
                 "색안경을 끼고 보지 마요\n" +
                 "Oh, baby, baby, baby (ah)",R.drawable.stereotype_stayc,R.raw.stayc600));
-        musicArray.add(new Music(7,"Love Story (Taylor's Version)", "Taylor Swift",7,"Country Pop","We were both young when I first saw you\n" +
+        musicArray.add(new Music(7,"Love Story (Taylor's Version)", "Taylor Swift",10,"Country Pop","We were both young when I first saw you\n" +
                 "I close my eyes and the flashback starts\n" +
                 "I'm standin' there\n" +
                 "On a balcony in summer air\n" +
@@ -388,7 +388,7 @@ public class Music {
                 "Oh, oh, oh\n" +
                 "Oh, oh, oh, oh\n" +
                 "'Cause we were both young when I first saw you",R.drawable.love_story,R.raw.ts700));
-        musicArray.add(new Music(8,"Visiting Hours", "Ed Sheeran",7,"Folk Pop","I wish that Heaven had visiting hours\n" +
+        musicArray.add(new Music(8,"Visiting Hours", "Ed Sheeran",6,"Folk Pop","I wish that Heaven had visiting hours\n" +
                 "So I could just show up and bring the news\n" +
                 "That she's gettin' older and I wish that you'd met her\n" +
                 "The things that she'll learn from me\n" +
@@ -416,7 +416,7 @@ public class Music {
                 "And everyone I love will know exactly who you are\n" +
                 "'Cause this is not goodbye, it is just 'til we meet again\n" +
                 "So much has changed since you've been away",R.drawable.visiting_hours,R.raw.es800));
-        musicArray.add(new Music(9,"Leave the Door Open", "Silk Sonic",7,"Soul","Said baby, said baby, said baby\n" +
+        musicArray.add(new Music(9,"Leave the Door Open", "Silk Sonic",4,"Soul","Said baby, said baby, said baby\n" +
                 "What you doing? (What you doing?)\n" +
                 "Where you at? (Where you at?)\n" +
                 "Oh, you got plans? (You got plans?)\n" +
@@ -480,7 +480,7 @@ public class Music {
                 "Girl, I'm here just waiting for you\n" +
                 "Come on over, I'll adore you\n" +
                 "La-la-la, la-la-la-la (la-la, la-la)",R.drawable.leave_the_door_open,R.raw.ltdr900));
-        musicArray.add(new Music(10,"Empty Words (흔한 이별)", "Huh Gak (허각)",7,"K-Ballad","매일 집으로 돌아가는\n" +
+        musicArray.add(new Music(10,"Empty Words (흔한 이별)", "Huh Gak (허각)",10,"K-Ballad","매일 집으로 돌아가는\n" +
                 "익숙한 골목 거리 사이\n" +
                 "불어온 볼 스치는 차가워진\n" +
                 "이 바람을 따라\n" +
