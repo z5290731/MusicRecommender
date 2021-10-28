@@ -3,9 +3,5 @@
     android:id="@+id/Music_Recycler"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#191414">
-
-
-
-</androidx.recyclerview.widget.RecyclerView>
+    android:background="#191414"/>
 

@@ -8,12 +8,18 @@ import androidx.palette.graphics.Palette;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Spannable;
+import android.text.method.ScrollingMovementMethod;
+import android.text.style.BackgroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -37,7 +43,7 @@ public class MusicSecondary extends AppCompatActivity {
 
     public ImageButton share;
 
-    public ImageButton Play, Stop, Pause;
+    public ImageButton Play, Stop, Pause, Help , YouTube, Spotify;
 
     public ImageView AlbumImage;
 
@@ -75,11 +81,18 @@ public class MusicSecondary extends AppCompatActivity {
         Stop = (ImageButton) findViewById(R.id.Stop);
         SeekBar = (SeekBar) findViewById(R.id.seekBar);
         share = (ImageButton) findViewById(R.id.share1);
-        rectangle_at_the_top = (View) findViewById(R.id.rectangle_at_the_top);
+        YouTube = (ImageButton) findViewById(R.id.imageButton4);
+        Spotify = (ImageButton) findViewById(R.id.imageButton3);
+        //rectangle_at_the_top = (View) findViewById(R.id.rectangle_at_the_top);
+        Help = (ImageButton) findViewById(R.id.help);
+
         ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
         //constraintLayout.setBackgroundColor(191414);
 
+        SeekBar.getProgressDrawable().setColorFilter(
+                Color.WHITE, android.graphics.PorterDuff.Mode.SRC_IN);
 
+        ListDescription.setMovementMethod(new ScrollingMovementMethod());
 
 
 
@@ -88,9 +101,11 @@ public class MusicSecondary extends AppCompatActivity {
 
         String songTitleCode = values.getString("music_title");
 
-        System.out.println(songTitleCode);
+        System.out.println(songTitleCode + "HELLO THERE");
 
         ArrayList<Music> musicTitle = Music.getMusic();
+
+
 
 
         ArrayList<Music> musicID = Music.getMusic();
@@ -153,6 +168,7 @@ public class MusicSecondary extends AppCompatActivity {
 
 
 
+
         Play.setOnClickListener(new View.OnClickListener() {
 
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -168,6 +184,7 @@ public class MusicSecondary extends AppCompatActivity {
 
                 mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     public void onPrepared(MediaPlayer mp) {
+                        mp.prepareAsync();
                         mp.start();
                     }
                 });
@@ -179,9 +196,16 @@ public class MusicSecondary extends AppCompatActivity {
                     mediaPlayer.stop();
 
                 } else {
-                    player.prepare();
-                    player.play();
-                    mediaPlayer.start();
+
+                    try {
+
+                        //mediaPlayer.seekTo(0);
+                        mediaPlayer.start();
+
+                    } catch(Exception e) {
+                        System.out.print(e);
+                        Toast.makeText(getApplicationContext(), "Error! Please restart the app and try again!",Toast.LENGTH_LONG).show();
+                    }
 
 
 
@@ -220,11 +244,47 @@ public class MusicSecondary extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Music Stopped",Toast.LENGTH_SHORT).show();
 
-                mediaPlayer.stop();
-                mediaPlayer.seekTo(0);
+                try {
+
+                    if(mediaPlayer != null) {
+                        mediaPlayer.stop();
+                        Pause.setEnabled(false);
+                        Play.setEnabled(false);
+
+                    }
+
+                    //mediaPlayer.reset();
+
+                } catch(Exception e) {
+
+                    Toast.makeText(getApplicationContext(), "Error! Please restart the app and try again!",Toast.LENGTH_LONG).show();
+
+                }
+
+
 
             }
         });
+
+
+        YouTube.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=" + ListTitle.getText().toString()));
+                https://open.spotify.com/search/
+                startActivity(intent);
+            }
+        });
+
+        Spotify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://open.spotify.com/search/" + ListTitle.getText().toString() + " " + ListArtist.getText().toString()));
+
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -236,7 +296,7 @@ public class MusicSecondary extends AppCompatActivity {
     public void setBackgroundColour(Bitmap bitmap) {
         Palette p = createPaletteSync(bitmap);
         Palette.Swatch vibrantSwatch = p.getVibrantSwatch();
-        rectangle_at_the_top = (View) findViewById(R.id.rectangle_at_the_top);
+        //rectangle_at_the_top = (View) findViewById(R.id.rectangle_at_the_top);
         ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
 
         int backgroundColor = ContextCompat.getColor(MusicSecondary.this, R.color.design_default_color_on_primary);
@@ -265,6 +325,12 @@ public class MusicSecondary extends AppCompatActivity {
 
 
     }
+
+    public void HelpAbout(View view) {
+        Intent intent = new Intent(this, HelpAbout.class);
+        startActivity(intent);
+    }
+
 
 
 

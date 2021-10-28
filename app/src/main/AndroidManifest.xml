@@ -15,6 +15,11 @@
         <activity
             android:name=".MusicSecondary"
             android:exported="true" />
+
+        <activity
+            android:name=".HelpAbout"
+            android:exported="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

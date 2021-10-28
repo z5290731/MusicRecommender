@@ -112,8 +112,15 @@ public class MainActivity extends AppCompatActivity {
     public void launchMusicSecondary(String message) {
         Intent intent = new Intent(this, MusicSecondary.class);
 
+
+        System.out.println(message + "THREE ONE");
+
+
         intent.putExtra("music_title", message);
         intent.putExtra("music_ID", message);
+
+        System.out.println(message + "TESTING ONE TWO THREE");
+
 
         startActivity(intent);
     }
