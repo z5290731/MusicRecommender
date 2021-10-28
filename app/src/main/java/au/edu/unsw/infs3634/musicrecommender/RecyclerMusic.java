@@ -7,6 +7,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,8 +21,7 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
 
     public static final int SORT_METHOD_RATING = 1;
     public static final int SORT_METHOD_RANK = 2;
-    // INCLUDE MORE SORTING (ALPHABAETICAL)//
-    // INCLUE MORE SORTING (ARTIST)//
+
 
     private ArrayList<Music> mRecyclerMusic;
     private ArrayList<Music> RecyclerMusicFiltered;
@@ -36,8 +36,6 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
 
 
     }
-
-
 
 
     @Override
@@ -102,12 +100,10 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
 
         holder.ListRanking.setText(Integer.toString(music.getRank()));
         holder.ListArtist.setText(music.getArtist());
-        holder.ListRating.setText(Integer.toString(music.getRating()));
+        holder.ListRating.setText(Integer.toString(music.getRating()) + "/10");
         holder.ListGenre.setText(music.getGenre());
         holder.itemView.setTag(music.getName());
         holder.ImageAlbum.setImageResource(music.getCode());
-
-
 
         //holder.ListDescription.setText(music.getDescription());
 
@@ -124,6 +120,8 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
         public ImageView ImageAlbum;
         public RecyclerViewClickListener listener;
 
+
+
         public MusicViewHolder(@NonNull View itemView, RecyclerViewClickListener listener) {
             super(itemView);
             this.listener = listener;
@@ -134,6 +132,8 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
             ListRating = itemView.findViewById(R.id.textView4);
             ListGenre = itemView.findViewById(R.id.r_genre);
             ImageAlbum = itemView.findViewById(R.id.imageView2);
+
+
 
 
             //ListDescription = itemView.findViewById();
@@ -147,19 +147,31 @@ public class RecyclerMusic extends RecyclerView.Adapter<RecyclerMusic.MusicViewH
     }
 
 
+    /**
+     * Try and Catch used to help the user highlight any issues with the sorting methodology
+     */
+
 
     public void sort(final int sortingMethod) {
-        if (RecyclerMusicFiltered.size() > 0) {
-            Collections.sort(RecyclerMusicFiltered, (o1, o2) -> {
-                if(sortingMethod == SORT_METHOD_RATING) {
-                    return o2.getRating().compareTo(o1.getRating());
-                } else if (sortingMethod == SORT_METHOD_RANK) {
+
+        try {
+            if (RecyclerMusicFiltered.size() > 0) {
+                Collections.sort(RecyclerMusicFiltered, (o1, o2) -> {
+                    if(sortingMethod == SORT_METHOD_RATING) {
+                        return o2.getRating().compareTo(o1.getRating());
+                    } else if (sortingMethod == SORT_METHOD_RANK) {
+                        return o2.getRank().compareTo(o1.getRank());
+                    }
                     return o2.getRank().compareTo(o1.getRank());
-                }
-                return o2.getRank().compareTo(o1.getRank());
-            });
+                });
+            }
+            notifyDataSetChanged();
+
+        } catch (Exception e) {
+
+            System.out.println(e + "Please restart the app immediately!");
         }
-        notifyDataSetChanged();
+
     }
 
 }

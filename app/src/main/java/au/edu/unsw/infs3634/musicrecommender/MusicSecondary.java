@@ -89,8 +89,21 @@ public class MusicSecondary extends AppCompatActivity {
         ConstraintLayout constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
         //constraintLayout.setBackgroundColor(191414);
 
+        /**
+         * Programatically setting the colour of the SeekBar
+         *
+         */
+
+
+
         SeekBar.getProgressDrawable().setColorFilter(
                 Color.WHITE, android.graphics.PorterDuff.Mode.SRC_IN);
+
+        /**
+         * Scroll Bar Code to help enable a Scroll Code for the Description
+         *
+         */
+
 
         ListDescription.setMovementMethod(new ScrollingMovementMethod());
 
@@ -156,6 +169,12 @@ public class MusicSecondary extends AppCompatActivity {
                 String ListTitleS = String.valueOf(ListTitle.getText());
                 String ListArtistS = String.valueOf(ListArtist.getText());
 
+                /**
+                 * Share Method to pass through Data from the app onto Android's Share Functionality,
+                 * allowing for a message to be copied into clipboard or sent into other applications
+                 */
+
+
                 String shareBody = "My "  + "#" + ListRankingS + " favourite song on Music Recommender is: " + "\n" + ListTitleS + " " + "by" + " " + ListArtistS + "! ";
                 String shareSub = "Share with Music Recommender";
                 sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, shareSub);
@@ -165,7 +184,11 @@ public class MusicSecondary extends AppCompatActivity {
         });
 
 
-
+        /**
+         * Button onClick Listeners used Programatically rather than through the XML onClick
+         * to help determine how the buttons should react. Disabling the buttons programtically to
+         * prevent users from inducing non-logical items.
+         */
 
 
 
@@ -197,6 +220,13 @@ public class MusicSecondary extends AppCompatActivity {
 
                 } else {
 
+                    /**
+                     * Try Catch Logging to Catch an Errors with MediaPlayer.
+                     * This is to prevent the MediaPlayer Threading issues from crashing the app,
+                     * with a toast prompt ensuring users can just restart the app and are aware that something is wrong,
+                     * following the 10 heuristics.
+                     */
+
                     try {
 
                         //mediaPlayer.seekTo(0);
@@ -210,6 +240,11 @@ public class MusicSecondary extends AppCompatActivity {
 
 
                 }
+
+                /**
+                 * Utilising if Statements to help set the SeekBar and ensure that it follows the music,
+                 * following the 10 heuristics
+                 */
 
 
                 finalTime = mediaPlayer.getDuration();
@@ -227,6 +262,13 @@ public class MusicSecondary extends AppCompatActivity {
                 myHandler.postDelayed(UpdateSongTime,100);
             }
         });
+
+
+        /**
+         * Button onClick Listeners used Programatically rather than through the XML onClick
+         * to help determine how the buttons should react. Disabling the buttons programtically to
+         * prevent users from inducing non-logical items.
+         */
 
         Pause.setOnClickListener(new View.OnClickListener() {
 
@@ -266,12 +308,19 @@ public class MusicSecondary extends AppCompatActivity {
             }
         });
 
+        /**
+         * Button onClick Listeners used Programatically rather than through the XML onClick
+         * to help determine how the buttons should react. Disabling the buttons programtically to
+         * prevent users from inducing non-logical items.
+         *
+         * These Buttons launched new intents to the YouTube and Spotify Pages, directly integrated to launch the app versions
+         */
+
 
         YouTube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/results?search_query=" + ListTitle.getText().toString()));
-                https://open.spotify.com/search/
                 startActivity(intent);
             }
         });
@@ -287,6 +336,10 @@ public class MusicSecondary extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Utilising Palette Methods to auto-generate a color palette according to analysis of the Cover Photo. Used to set certain texts accordingly
+     */
 
     public Palette createPaletteSync(Bitmap bitmap) {
         Palette p = Palette.from(bitmap).generate();
@@ -326,6 +379,10 @@ public class MusicSecondary extends AppCompatActivity {
 
     }
 
+    /**
+     * Launching the Help Page
+     */
+
     public void HelpAbout(View view) {
         Intent intent = new Intent(this, HelpAbout.class);
         startActivity(intent);
@@ -333,6 +390,9 @@ public class MusicSecondary extends AppCompatActivity {
 
 
 
+    /**
+     * Method to help the SeekBar continually update with the timing of the MusicPlayer
+     */
 
 
 
