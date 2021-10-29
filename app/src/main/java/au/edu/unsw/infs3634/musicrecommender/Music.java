@@ -92,6 +92,15 @@ public class Music {
     public static ArrayList<Music> getMusic() {
         ArrayList<Music> musicArray = new ArrayList<>();
 
+        /**
+         * Lyrics sourced from
+         * Google Lyrics
+         * Genius
+         * MusicMatch
+         * Made usage of the ExoPlayer and MediaPlayer API
+         */
+
+
         musicArray.add(new Music(1,"STAY", "The Kid Laroi",8,"Hip-Hop","I do the same thing I told you that I never would\n" +
                 "I told you I'd change, even when I knew I never could\n" +
                 "Know that I can't find nobody else as good as you\n" +
